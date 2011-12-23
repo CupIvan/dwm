@@ -1,8 +1,6 @@
 #!/bin/sh
 
-makepkg -o
-
-cd src/dwm-5.9/
+cd src/dwm-6.0/
 
 for patch in ../../patches/*.diff
 do

@@ -1,0 +1,21 @@
+DWM-5.9 - http://dwm.suckless.org/
+==================================
+update.sh  - Update DWM sources. Before this - updating DWM by `pacman -S dwm`.
+patche.sh  - Apply patches from patches dir.
+install.sh - Install DWM in ArchLinux.
+
+
+PATCHES - http://dwm.suckless.org/patches/
+==========================================
+dwm-5.8.2-pertag.diff     - This patch keeps layout, mwfact, barpos and nmaster (if installed) per tag.
+dwm-5.9-movestack.diff    - This plugin allows you to move clients around in the stack and swap them with the master.
+dwm-5.9-pwkl.diff         - Basically, this patch implements per-window keyboard layout support in dwm.
+dwm-5.9-statuscolors.diff - This patch enables colored text in the status bar.
+dwm-5.9-viewontag.diff    - follow a window to the tag it is being moved to.
+
+
+CREATE PATCH
+============
+
+cd modified-dwm-directory/..
+diff -up original-dwm-directory modified-dwm-directory > dwm-X.Y-yourpatchname.diff

@@ -1,5 +1,7 @@
 #!/bin/sh
 
+sudo abs community/dwm
+
 cp config.h config.h.backup
 cp -vf /var/abs/community/dwm/* ./
 rm -rf src

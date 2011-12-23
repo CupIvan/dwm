@@ -1,6 +1,6 @@
-diff -r 406003e3a01f dwm.c
---- a/dwm.c	Mon Sep 27 07:53:44 2010 +0000
-+++ b/dwm.c	Wed Oct 13 21:16:04 2010 +0300
+diff -up a/dwm.c b/dwm.c
+--- a/dwm.c	2011-12-19 19:02:46.000000000 +0400
++++ b/dwm.c	2011-12-24 01:41:26.000000000 +0400
 @@ -36,6 +36,7 @@
  #include <X11/Xlib.h>
  #include <X11/Xproto.h>
@@ -9,7 +9,7 @@ diff -r 406003e3a01f dwm.c
  #ifdef XINERAMA
  #include <X11/extensions/Xinerama.h>
  #endif /* XINERAMA */
-@@ -93,6 +94,7 @@
+@@ -95,6 +96,7 @@ struct Client {
  	Client *snext;
  	Monitor *mon;
  	Window win;
@@ -17,7 +17,7 @@ diff -r 406003e3a01f dwm.c
  };
  
  typedef struct {
-@@ -821,6 +823,7 @@
+@@ -852,6 +854,7 @@ focus(Client *c) {
  			selmon = c->mon;
  		if(c->isurgent)
  			clearurgent(c);
@@ -25,24 +25,24 @@ diff -r 406003e3a01f dwm.c
  		detachstack(c);
  		attachstack(c);
  		grabbuttons(c, True);
-@@ -1092,6 +1095,7 @@
+@@ -1112,6 +1115,7 @@ manage(Window w, XWindowAttributes *wa)
  	Client *c, *t = NULL;
  	Window trans = None;
  	XWindowChanges wc;
 +	XkbStateRec kbd_state;
  
- 	if(!(c = malloc(sizeof(Client))))
+ 	if(!(c = calloc(1, sizeof(Client))))
  		die("fatal: could not malloc() %u bytes\n", sizeof(Client));
-@@ -1146,6 +1150,8 @@
- 	XMapWindow(dpy, c->win);
- 	setclientstate(c, NormalState);
+@@ -1165,6 +1169,8 @@ manage(Window w, XWindowAttributes *wa)
  	arrange(c->mon);
+ 	XMapWindow(dpy, c->win);
+ 	focus(NULL);
 +	XkbGetState (dpy, XkbUseCoreKbd, &kbd_state);
 +	c->kbdgrp = kbd_state.group;
  }
  
  void
-@@ -1700,12 +1706,16 @@
+@@ -1773,12 +1779,16 @@ toggleview(const Arg *arg) {
  
  void
  unfocus(Client *c, Bool setfocus) {
